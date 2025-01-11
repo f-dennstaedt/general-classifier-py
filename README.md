@@ -380,3 +380,6 @@ For any questions or support, please open an issue on the [GitHub repository](ht
 # Related Projects
 The general classifier has been evaluated on oncological trials in the following projects: [GitHub repository](https://github.com/med-data-tools/general-classifier). 
 The related publication has been published as a preprint on medrxiv - doi: https://doi.org/10.1101/2024.12.03.24318390
+
+The general classifier is based on previous work using LLMs for title and abstract screening of biomedical publications
+doi: https://doi.org/10.1186/s13643-024-02575-4; [GitHub repository](https://github.com/med-data-tools/title-abstract-screening-ai)
