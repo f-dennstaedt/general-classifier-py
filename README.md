@@ -1,5 +1,7 @@
 # general-classifier
 
+**version 0.1.10**
+
 **general-classifier** is a Python package designed for multi-topic text classification leveraging Large Language Models (LLMs). It allows users to define multiple classification topics, manage categories within each topic, classify text data using various language models, evaluate classification performance, and iteratively improve classification prompts.
 
 ## Table of Contents
