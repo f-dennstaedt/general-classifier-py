@@ -90,11 +90,11 @@ def setModel(newModel,newModelType="Transformers",api_key="",newInferenceType="t
             print("Invalid inference Type.")
         
     if modelType=="OpenAI":
-        inferenceType=="cloud"
+        inferenceType="cloud"
         if not api_key=="":
             client = OpenAI(api_key=api_key)
     if modelType=="DeepInfra":
-        inferenceType=="cloud"
+        inferenceType="cloud"
         if not api_key=="":
             client = OpenAI(api_key=api_key,base_url="https://api.deepinfra.com/v1/openai")
 
@@ -812,10 +812,11 @@ def classify_table(dataset, withEvaluation=False, constrainedOutput=True, BATCH_
                 batch_results, batch_probs, batch_indices = process_batch(current_batch, current_index)
                 
                 # Unload model to free GPU memory
-                unload_model(LLM)
+                if(modelType=="Transformers"):
+                    unload_model(LLM)
                 
-                # Load fresh model instance
-                LLM = load_model()
+                    # Load fresh model instance
+                    LLM = load_model()
                 
                 # Write results and update metrics
                 for idx, (batch_row, result, prob) in enumerate(zip(current_batch, batch_results, batch_probs)):
@@ -930,7 +931,10 @@ def process_and_write_result(count, row, result, prob, saveName, withEvaluation,
                 numberOfRelevantAttempts[tmpCount - 1] += 1
                 singleResult.append(ground_truth)
                 singleResult.append(ret)
-                singleResult.append(prob.pop(0))
+                if(len(prob)>0):
+                    singleResult.append(prob.pop(0))
+                else:
+                    singleResult.append("")
                 if ret == ground_truth:
                     numberOfCorrectResults[tmpCount - 1] += 1
             else:
@@ -1262,6 +1266,23 @@ class MockText:
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
 #### UI
 def check_temporary_prompt_performance(topic_info, custom_prompt):
     global classify_CSV_box
@@ -1574,6 +1595,7 @@ def openInterface():
      
 
     def do_Classification_Button_Function():
+        global selectOptions
         # Record the start time
         start_time = time.time()
         numberOfCorrectResults = []
